@@ -21,7 +21,8 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
-	pool, err := pgxpool.New(ctx, "postgresql://localhost:5432/postgres")
+	dbConnectionString := os.Getenv("DATABASE_URL")
+	pool, err := pgxpool.New(ctx, dbConnectionString)
 	if err != nil {
 		log.Fatalf("Failed to create db connection pool %s", err.Error())
 	}
